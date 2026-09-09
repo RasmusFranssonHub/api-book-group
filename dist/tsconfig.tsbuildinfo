@@ -1,1 +1,1 @@
-{"root":["../src/controllers/authcontroller.ts","../src/controllers/greetingcontroller.ts","../src/middleware/verifytoken.ts","../src/routes/auth.ts","../src/routes/greetings.ts","../api/index.ts"],"version":"5.9.3"}
+{"root":["../src/controllers/authcontroller.ts","../src/controllers/greetingcontroller.ts","../src/middleware/verifytoken.ts","../src/models/user.ts","../src/routes/auth.ts","../src/routes/greetings.ts","../api/index.ts"],"version":"5.9.3"}
