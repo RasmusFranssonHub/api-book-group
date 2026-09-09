@@ -1,6 +1,8 @@
-const Review = require("../models/review");
+// Ansvarsområde 3 - Chariklia
+import { Request, Response } from "express";
+import Review from "../models/review";
 
-const getAllReviews = async (req, res) => {
+export const getAllReviews = async (req: Request, res: Response) => {
   try {
     const reviews = await Review.find();
     res.json(reviews);
@@ -9,7 +11,7 @@ const getAllReviews = async (req, res) => {
   }
 };
 
-const getReviewById = async (req, res) => {
+export const getReviewById = async (req: Request, res: Response) => {
   try {
     const review = await Review.findById(req.params.id);
     if (!review) {
@@ -22,12 +24,10 @@ const getReviewById = async (req, res) => {
   }
 };
 
-const createReview = async (req, res) => {
+export const createReview = async (req: Request, res: Response) => {
   const { name, content, rating, review_id } = req.body;
   if (!name || !content || !rating || !review_id) {
-    res
-      .status(400)
-      .json({ message: "name, content, rating and review_id are required" });
+    res.status(400).json({ message: "name, content, rating and review_id are required" });
     return;
   }
   try {
@@ -38,13 +38,11 @@ const createReview = async (req, res) => {
   }
 };
 
-const updateReview = async (req, res) => {
+export const updateReview = async (req: Request, res: Response) => {
   try {
-    const review = await Review.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const review = await Review.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!review) {
-      res.status(404).json({ message: "Review not found" });
+      res.status(404).json({ message: "Review not found "});
       return;
     }
     res.json(review);
@@ -53,7 +51,7 @@ const updateReview = async (req, res) => {
   }
 };
 
-const deleteReview = async (req, res) => {
+export const deleteReview = async (req: Request, res: Response) => {
   try {
     const review = await Review.findByIdAndDelete(req.params.id);
     if (!review) {
@@ -64,12 +62,4 @@ const deleteReview = async (req, res) => {
   } catch (e) {
     res.status(500).json({ message: "Something went wrong", error: e });
   }
-};
-
-module.exports = {
-  getAllReviews,
-  getReviewById,
-  createReview,
-  updateReview,
-  deleteReview,
 };
