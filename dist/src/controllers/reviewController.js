@@ -22,3 +22,16 @@ const getReviewById = async (req, res) => {
     }
 };
 
+const createReview = async (req, res) => {
+    const { name, content, rating, review_id } = req.body;
+    if (!name || !content || !rating || !review_id) {
+        res.status(400).json({ message: 'name, content, rating and review_id are required' });
+        return;
+    }
+    try {
+        const review = await Review.create({ name, content, rating, review_id });
+        res.status(201).json(review);
+    } catch (e) {
+        res.status(500).json({ message: 'Something went wrong', error: e });
+    }
+};
