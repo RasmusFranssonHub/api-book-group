@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.logout = exports.register = exports.login = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const User_1 = __importDefault(require("../models/User"));
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, password } = req.body;
     if (username === undefined || password === undefined) {
@@ -50,6 +51,8 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.login = login;
+//==============================================
+// Controller for handling user registration
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, password } = req.body;
     if (username === undefined || password === undefined) {
@@ -57,15 +60,34 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         return;
     }
     try {
+        const existingUser = yield User_1.default.findOne({ username });
+        if (existingUser) {
+            res.status(409).json({ message: "Username is already taken" });
+            return;
+        }
         const hashedPassword = yield bcrypt_1.default.hash(password, 10);
-        // The hashedPassword is the value that should be saved in the DB, not the plain password. For security reasons
-        res.json({ message: "You are registered", username: username, password: password, hashedPassword: hashedPassword });
+        const newUser = yield User_1.default.create({
+            username,
+            password: hashedPassword,
+        });
+        res.status(201).json({
+            message: "User registered",
+            user: {
+                id: newUser._id,
+                username: newUser.username,
+                is_admin: newUser.is_admin,
+                created_at: newUser.created_at,
+            },
+        });
     }
-    catch (e) {
-        console.log(e);
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Could not register user" });
     }
 });
 exports.register = register;
+//==============================================
+// Controller for handling user logout
 const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.clearCookie('accessToken');
     res.json({ message: "You are logged out" });

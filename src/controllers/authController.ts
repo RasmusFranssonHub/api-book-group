@@ -1,6 +1,10 @@
 import { Request, Response } from "express"
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
+import User from "../models/User";
+
+//==================================================
+// Controller for handling user login
 
 export const login = async (req: Request, res: Response) => {
     const {username, password} = req.body
@@ -16,6 +20,9 @@ export const login = async (req: Request, res: Response) => {
         const accessToken = jwt.sign({username}, process.env.JWT_SECRET || "", {expiresIn: '7d'});
         console.log(accessToken)
 
+
+        //====================================================
+        // Set the access token as an HTTP-only cookie in the response
 
         res.cookie('accessToken', accessToken, {
             // Prevents client-side JavaScript from accessing the cookie (e.g. document.cookie).
@@ -43,6 +50,9 @@ export const login = async (req: Request, res: Response) => {
     }
 }
 
+//==============================================
+// Controller for handling user registration
+
 export const register = async (req: Request, res: Response) => {
     const {username, password} = req.body
     if (username === undefined || password === undefined) {
@@ -51,16 +61,37 @@ export const register = async (req: Request, res: Response) => {
     }
 
     try {
-        const hashedPassword = await bcrypt.hash(password, 10)
+    const existingUser = await User.findOne({ username });
 
-        // The hashedPassword is the value that should be saved in the DB, not the plain password. For security reasons
-        res.json({message: "You are registered", username: username, password: password, hashedPassword: hashedPassword})
-    } catch (e) {
-        console.log(e)
+    if (existingUser) {
+        res.status(409).json({ message: "Username is already taken" });
+        return;
     }
 
-    
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = await User.create({
+        username,
+        password: hashedPassword,
+    });
+
+    res.status(201).json({
+        message: "User registered",
+        user: {
+        id: newUser._id,
+        username: newUser.username,
+        is_admin: newUser.is_admin,
+        created_at: newUser.created_at,
+        },
+    });
+    } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Could not register user" });
+    }
 }
+
+//==============================================
+// Controller for handling user logout
 
 export const logout = async (req: Request, res: Response) => {
     res.clearCookie('accessToken')
