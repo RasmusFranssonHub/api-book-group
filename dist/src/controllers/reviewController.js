@@ -52,3 +52,24 @@ const updateReview = async (req, res) => {
     res.status(500).json({ message: "Something went wrong", error: e });
   }
 };
+
+const deleteReview = async (req, res) => {
+  try {
+    const review = await Review.findByIdAndDelete(req.params.id);
+    if (!review) {
+      res.status(404).json({ message: "Review not found" });
+      return;
+    }
+    res.json({ message: "Review deleted" });
+  } catch (e) {
+    res.status(500).json({ message: "Something went wrong", error: e });
+  }
+};
+
+module.exports = {
+  getAllReviews,
+  getReviewById,
+  createReview,
+  updateReview,
+  deleteReview,
+};
