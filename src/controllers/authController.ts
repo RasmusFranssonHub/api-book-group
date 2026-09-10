@@ -13,12 +13,37 @@ export const login = async (req: Request, res: Response) => {
         return
     }
 
-    const hashedPassword = "$2b$10$WoiGUJIU1IB5VarJOe468eae0wHxD53MI9PJta2ohnBam2R72Kc2S"
+    const jwtSecret = process.env.JWT_SECRET;
 
-    const isLoggedIn = await bcrypt.compare(password, hashedPassword)
-    if (username === 'admin' && password === '123') {
-        const accessToken = jwt.sign({username}, process.env.JWT_SECRET || "", {expiresIn: '7d'});
-        console.log(accessToken)
+    if (!jwtSecret) {
+    res.status(500).json({ message: "JWT_SECRET is missing" });
+    return;
+    }
+
+    try {
+    const user = await User.findOne({ username });
+
+    if (!user) {
+        res.status(401).json({ message: "username/password are wrong" });
+        return;
+    }
+
+    const isLoggedIn = await bcrypt.compare(password, user.password);
+
+    if (!isLoggedIn) {
+        res.status(401).json({ message: "username/password are wrong" });
+        return;
+    }
+
+    const accessToken = jwt.sign(
+        {
+        userId: user._id.toString(),
+        username: user.username,
+        is_admin: user.is_admin,
+        },
+        jwtSecret,
+        { expiresIn: "7d" }
+    );
 
 
         //====================================================
@@ -42,11 +67,18 @@ export const login = async (req: Request, res: Response) => {
             // After this time the browser automatically deletes the cookie and the user must log in again.
             maxAge: 1000 * 60 * 60 * 24 * 7 // Lives on for 7 days
         })
-        res.json({message: 'You are logged in', isLoggedIn: isLoggedIn})
-        return;
-    } else {
-        res.status(401).json({message: 'username/password are wrong'})
-        return
+    res.json({
+    message: "You are logged in",
+    user: {
+        id: user._id,
+        username: user.username,
+        is_admin: user.is_admin,
+    },
+    });
+    return;
+    } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Could not log in" });
     }
 }
 

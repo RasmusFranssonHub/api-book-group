@@ -71,8 +71,10 @@ app.use(express_1.default.static(path_1.default.join(process.cwd(), 'public')));
 // Routes
 const auth_1 = __importDefault(require("../src/routes/auth"));
 const greetings_1 = __importDefault(require("../src/routes/greetings"));
+const users_1 = __importDefault(require("../src/routes/users"));
 app.use('/api/auth', auth_1.default);
 app.use('/api/greetings', greetings_1.default);
+app.use('/api/users', users_1.default);
 // Connect To DB
 const mongoose_1 = __importDefault(require("mongoose"));
 mongoose_1.default
