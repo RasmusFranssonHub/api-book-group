@@ -78,15 +78,21 @@ app.use(express.static(path.join(process.cwd(), 'public')));
 // Routes
 import authRouter from '../src/routes/auth'
 import greetingRouter from '../src/routes/greetings'
+import usersRouter from '../src/routes/users'
 import reviewRouter from '../src/routes/reviews'
 app.use('/api/auth', authRouter)
 app.use('/api/greetings', greetingRouter)
+app.use('/api/users', usersRouter)
 app.use('/api/reviews', reviewRouter)
 
 
 
+
 // Connect To DB
- mongoose.connect(process.env.MONGODB_URL || "");
+mongoose
+.connect(process.env.MONGODB_URL || "")
+.then(() => console.log("Connected to MongoDB"))
+.catch((err) => console.error("Failed to connect to MongoDB", err));
 
 // Start the express server
 const PORT = 3000
