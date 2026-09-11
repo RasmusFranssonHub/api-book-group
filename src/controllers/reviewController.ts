@@ -1,6 +1,6 @@
 // Ansvarsområde 3 - Chariklia
 import { Request, Response } from "express";
-import Review from "../models/review";
+import Review from "../models/Review";
 import { Book } from "../models/Book";
 
 export const getAllReviews = async (req: Request, res: Response) => {
