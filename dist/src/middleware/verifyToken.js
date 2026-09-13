@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifyToken = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const verifyToken = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.cookies.accessToken);
     if (req.cookies.accessToken === undefined) {
         res.status(401).send();
         return;
