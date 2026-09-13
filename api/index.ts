@@ -1,9 +1,8 @@
-import 'dotenv/config'
-import express from 'express';
-import cors from 'cors'
-import cookieParser from 'cookie-parser';
-import path from 'path';
-
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import path from "path";
 
 const app = express();
 
@@ -11,7 +10,6 @@ const app = express();
 // JWT_SECRET = 'secret'
 // NODE_ENV = 'development' # development | production
 // CLIENT_URL = 'http://localhost:4000'
-
 
 // Middleware
 // Reads a request body sent as JSON text and turns it into a real JavaScript
@@ -23,7 +21,6 @@ app.use(express.json());
 // verifyToken can reach the token as req.cookies.accessToken.
 app.use(cookieParser());
 
-
 // CORS only concerns requests from OTHER origins. Our own client lives in
 // public/ and is served from the same origin as this API, so the browser never
 // treats it as cross-origin and never applies any of these rules to it.
@@ -32,10 +29,12 @@ app.use(cookieParser());
 //   credentials -> whether that domain may also be logged in (send the cookie)
 // With CLIENT_URL empty, no CORS headers are sent at all and only our own
 // same-origin client can use the API from a browser.
-app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000', // This makes the Express server accept requests from other domains
-  credentials: true    // Allows cookies sent to this API
-}));
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL || "http://localhost:3000", // This makes the Express server accept requests from other domains
+    credentials: true, // Allows cookies sent to this API
+  }),
+);
 
 // Serve the static client (the HTML/CSS/JS in public/).
 // Read the line from the inside out:
@@ -71,32 +70,28 @@ app.use(cors({
 //
 // On Vercel this line is mostly a local convenience - the platform serves
 // public/ by itself, before a request ever reaches this function.
-app.use(express.static(path.join(process.cwd(), 'public')));
-
+app.use(express.static(path.join(process.cwd(), "public")));
 
 // Routes
-import authRouter from '../src/routes/auth'
-import greetingRouter from '../src/routes/greetings'
-import usersRouter from '../src/routes/users'
-app.use('/api/auth', authRouter)
-app.use('/api/greetings', greetingRouter)
-app.use('/api/users', usersRouter)
-
-
+import authRouter from "../src/routes/auth";
+import greetingRouter from "../src/routes/greetings";
+import usersRouter from "../src/routes/users";
+import bookRouter from "../src/routes/books";
+app.use("/api/auth", authRouter);
+app.use("/api/greetings", greetingRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/books", bookRouter);
 
 // Connect To DB
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 mongoose
-.connect(process.env.MONGODB_URL || "")
-.then(() => console.log("Connected to MongoDB"))
-.catch((err) => console.error("Failed to connect to MongoDB", err));
+  .connect(process.env.MONGODB_URL || "")
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("Failed to connect to MongoDB", err));
 
 // Start the express server
-const PORT = 3000
+const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`)
-})
-
-
-
+  console.log(`Server is running at http://localhost:${PORT}`);
+});
