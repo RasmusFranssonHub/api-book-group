@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import path from "path";
+import mongoose from "mongoose";
 
 const app = express();
 
@@ -77,14 +78,14 @@ import authRouter from "../src/routes/auth";
 import greetingRouter from "../src/routes/greetings";
 import usersRouter from "../src/routes/users";
 import bookRouter from "../src/routes/books";
+import reviewRouter from "../src/routes/reviews";
 app.use("/api/auth", authRouter);
 app.use("/api/greetings", greetingRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/books", bookRouter);
+app.use("/api/reviews", reviewRouter);
 
 // Connect To DB
-import mongoose from "mongoose";
-
 mongoose
   .connect(process.env.MONGODB_URL || "")
   .then(() => console.log("Connected to MongoDB"))
