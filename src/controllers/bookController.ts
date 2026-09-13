@@ -1,6 +1,7 @@
 // Ansvarsområde 2 — Oscar
 import { Request, Response } from "express";
 import { Book } from "../models/Book";
+import Review from "../models/review";
 
 // GET /api/books
 export const getAllBooks = async (req: Request, res: Response) => {
@@ -20,7 +21,8 @@ export const getBookById = async (req: Request, res: Response) => {
       res.status(404).json({ error: "Boken hittades inte" });
       return;
     }
-    res.status(200).json(book);
+    const reviews = await Review.find({ book_id: book._id });
+    res.status(200).json({ ...book.toObject(), reviews });
   } catch (error) {
     res.status(400).json({ error: "Ogiltigt id" });
   }
