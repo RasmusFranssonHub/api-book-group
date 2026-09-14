@@ -1,7 +1,7 @@
 // Ansvarsområde 2 — Oscar
 import { Request, Response } from "express";
 import { Book } from "../models/Book";
-import Review from "../models/review";
+import Review from "../models/Review";
 
 // GET /api/books
 export const getAllBooks = async (req: Request, res: Response) => {
