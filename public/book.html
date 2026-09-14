@@ -16,10 +16,11 @@
     <section>
       <h2>Skriv en recension</h2>
       <div>
-        <label>Namn <input type="text" id="name" /></label>
-        <label>Recension <textarea id="content"></textarea></label>
+        <label>Namn <input type="text" id="name" required /></label>
+        <label>Recension <textarea id="content" required></textarea></label>
         <label
-          >Betyg (1-5) <input type="number" id="rating" min="1" max="5"
+          >Betyg (1-5)
+          <input type="number" id="rating" min="1" max="5" required
         /></label>
         <button id="create-btn">Skicka recension</button>
       </div>

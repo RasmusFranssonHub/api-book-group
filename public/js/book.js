@@ -58,7 +58,8 @@ function renderReviews(reviews) {
     name.textContent = review.name;
 
     const rating = document.createElement("p");
-    rating.textContent = "★".repeat(review.rating) + "☆".repeat(5 - review.rating);
+    rating.textContent =
+      "★".repeat(review.rating) + "☆".repeat(5 - review.rating);
 
     const content = document.createElement("p");
     content.textContent = review.content;
@@ -74,10 +75,24 @@ function renderReviews(reviews) {
 document.getElementById("create-btn").addEventListener("click", async () => {
   const message = document.getElementById("form-message");
 
+  const name = document.getElementById("name").value;
+  const content = document.getElementById("content").value;
+  const rating = document.getElementById("rating").value;
+
+  if (!name || !content || !rating) {
+    message.textContent = "Fyll i alla fält innan du skickar.";
+    return;
+  }
+
+  if (rating < 1 || rating > 5) {
+    message.textContent = "Betyget måste vara mellan 1 och 5.";
+    return;
+  }
+
   const newReview = {
-    name: document.getElementById("name").value,
-    content: document.getElementById("content").value,
-    rating: Number(document.getElementById("rating").value),
+    name,
+    content,
+    rating: Number(rating),
     book_id: bookId,
   };
 
