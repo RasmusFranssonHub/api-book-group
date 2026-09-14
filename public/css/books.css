@@ -1,0 +1,132 @@
+/* Boklista */
+#book-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 24px;
+  padding: 16px;
+}
+
+#book-list article {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+#book-list img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+#book-list h2 {
+  font-size: 1.1rem;
+  margin: 12px 0 4px;
+}
+
+#book-list p {
+  margin: 2px 0;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+#book-list a {
+  color: #1a1a1a;
+  text-decoration: none;
+}
+
+#book-list a:hover {
+  text-decoration: underline;
+}
+
+/* Admintabell */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+th {
+  background: #f5f5f5;
+}
+
+/* Formulär */
+#create-form label {
+  display: block;
+}
+
+#create-form input,
+#create-form textarea {
+  display: block;
+  width: 100%;
+  padding: 6px;
+  margin-top: 4px;
+}
+
+#create-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 32px;
+  max-width: 800px;
+}
+
+#create-form button {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+/* Allmänt */
+body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+/* Draperi i sidorna */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  pointer-events: none;
+  z-index: -1;
+  background: repeating-linear-gradient(
+    90deg,
+    #6b1520 0px,
+    #8f1f2e 14px,
+    #a8283a 22px,
+    #8f1f2e 30px,
+    #6b1520 44px
+  );
+}
+
+body::before {
+  left: 0;
+  box-shadow: inset -14px 0 24px rgba(0, 0, 0, 0.45);
+}
+
+body::after {
+  right: 0;
+  box-shadow: inset 14px 0 24px rgba(0, 0, 0, 0.45);
+}
+
+@media (max-width: 1500px) {
+  body::before,
+  body::after {
+    display: none;
+  }
+}
