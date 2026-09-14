@@ -51,7 +51,7 @@ function renderReviews(reviews) {
     name.textContent = review.name;
 
     const rating = document.createElement("p");
-    rating.textContent = `Betyg: ${review.rating}`;
+    rating.textContent = "★".repeat(review.rating) + "☆".repeat(5 - review.rating);
 
     const content = document.createElement("p");
     content.textContent = review.content;
