@@ -3,6 +3,11 @@
 const params = new URLSearchParams(window.location.search);
 const bookId = params.get("id");
 
+document.getElementById("rating").addEventListener("input", (e) => {
+  if (e.target.value > 5) e.target.value = 5;
+  if (e.target.value < 1 && e.target.value !== "") e.target.value = 1;
+});
+
 async function loadBook() {
   const titleEl = document.getElementById("book-title");
   const container = document.getElementById("book-info");
@@ -21,16 +26,24 @@ async function loadBook() {
     img.width = 200;
 
     const author = document.createElement("p");
-    author.innerHTML = `<strong>Författare:</strong> ${book.author}`;
+    const authorLabel = document.createElement("strong");
+    authorLabel.textContent = "Författare: ";
+    author.append(authorLabel, book.author);
 
     const year = document.createElement("p");
-    year.innerHTML = `<strong>Utgiven:</strong> ${book.published_year}`;
+    const yearLabel = document.createElement("strong");
+    yearLabel.textContent = "Utgiven: ";
+    year.append(yearLabel, String(book.published_year));
 
     const genres = document.createElement("p");
-    genres.innerHTML = `<strong>Genre:</strong> ${book.genres.join(", ")}`;
+    const genresLabel = document.createElement("strong");
+    genresLabel.textContent = "Genre ";
+    genres.append(genresLabel, book.genres.join(", "));
 
     const description = document.createElement("p");
-    description.innerHTML = `<strong>Beskrivning:</strong> ${book.description}`;
+    const descriptionLabel = document.createElement("strong");
+    descriptionLabel.textContent = "Beskrivning: ";
+    description.append(descriptionLabel, book.description);
 
     const textInfo = document.createElement("div");
     textInfo.append(author, year, genres, description);
@@ -50,6 +63,9 @@ async function loadBook() {
 function renderReviews(reviews) {
   const container = document.getElementById("review-list");
   container.innerHTML = "";
+
+  document.getElementById("review-count").textContent =
+    `Recensioner (${reviews.length})`;
 
   reviews.forEach((review) => {
     const card = document.createElement("article");
@@ -84,7 +100,7 @@ document.getElementById("create-btn").addEventListener("click", async () => {
     return;
   }
 
-  if (rating < 1 || rating > 5) {
+  if (Number(rating) < 1 || Number(rating) > 5) {
     message.textContent = "Betyget måste vara mellan 1 och 5.";
     return;
   }
