@@ -1,0 +1,48 @@
+body {
+    font-family: sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+section {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+input, textarea {
+    display: block;
+    margin-top: 6px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-family: inherit;
+}
+
+label {
+    display: block;
+    margin-bottom: 12px;
+}
+
+textarea {
+    width: 100%;
+    max-width: 400px;
+}
+
+#review-list article {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+}
