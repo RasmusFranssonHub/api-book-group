@@ -21,18 +21,25 @@ async function loadBook() {
     img.width = 200;
 
     const author = document.createElement("p");
-    author.textContent = book.author;
+    author.innerHTML = `<strong>Författare:</strong> ${book.author}`;
 
     const year = document.createElement("p");
-    year.textContent = book.published_year;
+    year.innerHTML = `<strong>Utgiven:</strong> ${book.published_year}`;
 
     const genres = document.createElement("p");
-    genres.textContent = book.genres.join(", ");
+    genres.innerHTML = `<strong>Genre:</strong> ${book.genres.join(", ")}`;
 
     const description = document.createElement("p");
-    description.textContent = book.description;
+    description.innerHTML = `<strong>Beskrivning:</strong> ${book.description}`;
 
-    container.append(img, author, year, genres, description);
+    const textInfo = document.createElement("div");
+    textInfo.append(author, year, genres, description);
+
+    const bookLayout = document.createElement("div");
+    bookLayout.className = "book-layout";
+    bookLayout.append(img, textInfo);
+
+    container.append(bookLayout);
 
     renderReviews(book.reviews || []);
   } catch (error) {
