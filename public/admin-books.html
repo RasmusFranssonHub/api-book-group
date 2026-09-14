@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Böcker</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <h1>Adminpanel - Böcker</h1>
+
+    <section>
+      <h2>Skapa ny bok</h2>
+      <div>
+        <label>Titel <input type="text" id="title" /></label>
+        <label>Författare <input type="text" id="author" /></label>
+        <label>Beskrivning <textarea id="description"></textarea></label>
+        <label
+          >Genrer (kommaseparerade) <input type="text" id="genres"
+        /></label>
+        <label>Bild-URL <input type="text" id="image" /></label>
+        <label>Utgivningsår <input type="number" id="published_year" /></label>
+        <button id="create-btn">Skapa bok</button>
+      </div>
+      <div id="form-message"></div>
+    </section>
+
+    <section>
+      <h2>Alla böcker</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Titel</th>
+            <th>Författare</th>
+            <th>Genrer</th>
+            <th>Utgivningsår</th>
+          </tr>
+        </thead>
+        <tbody id="book-table"></tbody>
+      </table>
+    </section>
+
+    <script src="/js/functions.js"></script>
+    <script src="/js/admin-books.js"></script>
+  </body>
+</html>
