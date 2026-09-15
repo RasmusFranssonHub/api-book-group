@@ -1,6 +1,6 @@
 // Ansvarsområde 3 - Chariklia
 import { Request, Response } from "express";
-import Review from "../models/review";
+import Review from "../models/Review";
 import { Book } from "../models/Book";
 
 export const getAllReviews = async (req: Request, res: Response) => {
@@ -68,7 +68,7 @@ export const deleteReview = async (req: Request, res: Response) => {
       res.status(404).json({ message: "Review not found" });
       return;
     }
-    res.json({ message: "Review deleted" });
+    res.status(204).send();
   } catch (e) {
     res.status(500).json({ message: "Something went wrong", error: e });
   }
