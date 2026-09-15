@@ -5,13 +5,13 @@ import {
     updateUser,
     deleteUser } from "../controllers/usersController";
 
-import { verifyToken } from "../middleware/verifyToken";
+import { verifyToken, verifyAdmin } from "../middleware/verifyToken";
 
 const router = express.Router();
 
-router.get("/", verifyToken, getAllUsers);
-router.get("/:id", verifyToken, getUserById);
-router.patch("/:id", verifyToken, updateUser);
-router.delete("/:id", verifyToken, deleteUser);
+router.get("/", verifyToken, verifyAdmin, getAllUsers);
+router.get("/:id", verifyToken, verifyAdmin, getUserById);
+router.patch("/:id", verifyToken, verifyAdmin, updateUser);
+router.delete("/:id", verifyToken, verifyAdmin, deleteUser);
 
 export default router;

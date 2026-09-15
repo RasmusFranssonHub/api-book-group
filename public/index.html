@@ -7,24 +7,24 @@
     <title>Book API</title>
 
     <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        href="css/style.css"
         rel="stylesheet"
     >
 </head>
 
 <body>
 
-    <div class="container mt-5">
+    <nav class="nav-bar">
 
-        <a href="admin-books.html" class="btn btn-secondary">
+        <a href="admin-books.html" class="admin-btn">
             Admin
         </a>
 
-        <button id="login-btn" class="btn btn-success">
+        <button id="login-btn" class="login-btn">
             Logga in
         </button>
 
-    </div>
+    </nav>
 
     <!-- Books Section -->
     <div class="Böcker">
@@ -32,45 +32,94 @@
       <h1>Böcker</h1>
       <div id="book-list"></div>
 
-      <script src="/js/functions.js"></script>
-      <script src="/js/books.js"></script>
-
     </div>
 
-    <!-- Login -->
-    <div id="login-box" class="container mt-4 d-none">
+    <!-- Login overlay -->
+    <div id="login-overlay">
 
-        <h2>Logga in</h2>
+        <div id="login-box">
 
-        <form id="login-form">
+            <button id="login-close">✕</button>
 
-            <input
-                type="text"
-                id="username"
-                class="form-control mb-2"
-                placeholder="Användarnamn"
-                autocomplete="username"
-                required
-            >
+            <div class="login-tabs">
 
-            <input
-                type="password"
-                id="password"
-                class="form-control mb-2"
-                placeholder="Lösenord"
-                autocomplete="current-password"
-                required
-            >
+                <button id="show-login">
+                    Logga in
+                </button>
 
-            <button type="submit" class="btn btn-primary">
-                Logga in
-            </button>
+                <button id="show-register">
+                    Registrera
+                </button>
 
-        </form>
+            </div>
 
+
+            <!-- LOGIN -->
+
+            <div id="login-view">
+
+                <h2>Logga in</h2>
+
+                <div id="login-message"></div>
+
+                <form id="login-form">
+
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Användarnamn"
+                        required
+                    >
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Lösenord"
+                        required
+                    >
+
+                    <button type="submit">
+                        Logga in
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- REGISTER -->
+
+            <div id="register-view">
+
+                <h2>Registrera användare</h2>
+
+                <form id="register-form">
+
+                    <input
+                        type="text"
+                        id="register-username"
+                        placeholder="Användarnamn"
+                        required
+                    >
+
+                    <input
+                        type="password"
+                        id="register-password"
+                        placeholder="Lösenord"
+                        required
+                    >
+
+                    <button type="submit">
+                        Registrera
+                    </button>
+
+                </form>
+            </div>
+        </div>
     </div>
 
     <script src="js/functions.js"></script>
+    <script src="/js/books.js"></script>
     <script src="js/login.js"></script>
 
 </body>
