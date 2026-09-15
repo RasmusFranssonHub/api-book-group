@@ -1,18 +1,62 @@
-import { NextFunction, Request, Response } from 'express'
-import jwt from 'jsonwebtoken'
+import { NextFunction, Request, Response } from "express";
+import jwt from "jsonwebtoken";
 
-export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
+declare global {
+  namespace Express {
+    interface Request {
+      user?: {
+        userId: string;
+        username: string;
+        is_admin: boolean;
+      };
+    }
+  }
+}
+
+export const verifyToken = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   if (req.cookies.accessToken === undefined) {
-    res.status(401).send()
-    return
+    res.status(401).json({ message: "Not logged in" });
+    return;
   }
 
-  jwt.verify(req.cookies.accessToken, process.env.JWT_SECRET || "", (error: jwt.VerifyErrors | null) => {
-    if (error) {
-      res.status(403).send()
-      return
-    }
+  jwt.verify(
+    req.cookies.accessToken,
+    process.env.JWT_SECRET || "",
+    (error: jwt.VerifyErrors | null, decoded?: string | jwt.JwtPayload) => {
+      if (error) {
+        res.status(403).json({ message: "Invalid token" });
+        return;
+      }
 
-    next() // makes the request move on to the next step in the process, in this case move on to greetingSpecific
-  })
-}
+      req.user = decoded as {
+        userId: string;
+        username: string;
+        is_admin: boolean;
+      };
+
+      next();
+    }
+  );
+};
+
+export const verifyAdmin = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  if (!req.user) {
+    res.status(401).json({ message: "Not logged in" });
+    return;
+  }
+
+  if (!req.user.is_admin) {
+    res.status(403).json({ message: "Admin access required" });
+    return;
+  }
+
+  next();
+};
