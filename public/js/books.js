@@ -35,6 +35,12 @@ async function loadBooks() {
       genres.textContent = book.genres.join(", ");
 
       card.append(img, heading, author, year, genres);
+
+      card.style.cursor = "pointer";
+      card.addEventListener("click", () => {
+        window.location.href = `/book.html?id=${book._id}`;
+      });
+
       container.appendChild(card);
     });
   } catch (error) {
