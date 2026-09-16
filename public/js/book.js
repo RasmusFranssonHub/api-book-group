@@ -23,7 +23,6 @@ async function loadBook() {
     const img = document.createElement("img");
     img.src = book.image;
     img.alt = book.title;
-    img.width = 200;
 
     const author = document.createElement("p");
     const authorLabel = document.createElement("strong");

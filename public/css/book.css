@@ -1,8 +1,8 @@
 body {
   font-family: sans-serif;
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 16px;
+  padding: 24px;
 }
 
 section {
@@ -56,7 +56,26 @@ textarea {
 .book-layout {
   display: flex;
   gap: 20px;
-  align-items: flex-start;
+  align-items: stretch;
+}
+
+.book-layout > div {
+  flex: 1;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.book-layout > div p {
+  max-width: 350px;
+}
+
+.book-layout img {
+  width: 280px;
+  border-radius: 8px;
 }
 
 a {
@@ -66,4 +85,39 @@ a {
 
 #form-message {
   margin-top: 12px;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  pointer-events: none;
+  z-index: -1;
+  background: repeating-linear-gradient(
+    90deg,
+    #6b1520 0px,
+    #8f1f2e 14px,
+    #a8283a 22px,
+    #8f1f2e 30px,
+    #6b1520 44px
+  );
+}
+body::before {
+  left: 0;
+  box-shadow: inset -14px 0 24px rgba(0, 0, 0, 0.45);
+}
+
+body::after {
+  right: 0;
+  box-shadow: inset 14px 0 24px rgba(0, 0, 0, 0.45);
+}
+
+@media (max-width: 1500px) {
+  body::before,
+  body::after {
+    display: none;
+  }
 }
