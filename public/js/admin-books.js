@@ -32,11 +32,47 @@ async function loadBooks() {
       const year = document.createElement("td");
       year.textContent = book.published_year;
 
-      row.append(title, author, genres, year);
+      const actions = document.createElement("td");
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "Ta bort";
+      deleteBtn.addEventListener("click", () =>
+        deleteBook(book._id, book.title),
+      );
+      actions.appendChild(deleteBtn);
+      row.append(title, author, genres, year, actions);
       tbody.appendChild(row);
     });
   } catch (error) {
     console.error("Error:", error);
+  }
+}
+
+async function deleteBook(id, title) {
+  if (!confirm(`Ta bort "${title}"?`)) return;
+
+  const message = document.getElementById("form-message");
+
+  try {
+    const response = await fetch(`${API_URL}/books/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+
+    if (response.status === 401 || response.status === 403) {
+      window.location.href =
+        "index.html?message=You must be logged in to view this page";
+      return;
+    }
+
+    if (response.ok) {
+      message.textContent = `"${title}" togs bort.`;
+      loadBooks();
+    } else {
+      message.textContent = "Kunde inte ta bort boken.";
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    message.textContent = "Något gick fel.";
   }
 }
 
@@ -108,13 +144,13 @@ async function loadUsers() {
       return;
     }
 
-      const data = await response.json();
-      const users = data.users;
+    const data = await response.json();
+    const users = data.users;
 
-      const tbody = document.getElementById("user-table");
-      tbody.innerHTML = "";
+    const tbody = document.getElementById("user-table");
+    tbody.innerHTML = "";
 
-      users.forEach((user) => {
+    users.forEach((user) => {
       const row = document.createElement("tr");
 
       // Användarnamn
