@@ -9,16 +9,43 @@
   </head>
 
 <body>
+    <div id="toast" class="toast"></div>
+
+    <!-- Navigation bar -->
 
     <nav class="nav-bar">
 
-        <a href="admin-books.html" class="admin-btn">
-            Admin
+        <div class="navbar-brand">
+            <div class="navbar-logo">
+                <img src="/images/Book5.svg" alt="Bokhyllan Logo" />
+            </div>
+
+            <div class="navbar-text">
+                <div class="navbar-title">Bokhyllan</div>
+                <div class="navbar-description">• HITTA BÖCKER • LÄS RECENSIONER</div>
+            </div>
+        </div>
+
+        <a href="admin-books.html" id="admin-btn" class="admin-btn">
+            Adminpanel
         </a>
 
-        <button id="login-btn" class="login-btn">
-            Logga in
-        </button>
+        <div class="user-area">
+
+            <div class="user-info">
+                <img src="/images/user.svg" alt="User Icon" class="user-icon" />
+                <span id="username-display"></span>
+            </div>
+
+            <button id="logout-btn" class="logout-btn">
+                Logga ut
+            </button>
+
+            <button id="login-btn" class="login-btn">
+                Logga in
+            </button>
+
+        </div>
 
     </nav>
 
@@ -89,6 +116,8 @@
             <div id="register-view">
 
                 <h2>Registrera användare</h2>
+
+                <div id="register-message"></div>
 
                 <form id="register-form">
 

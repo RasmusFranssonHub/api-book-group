@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" fill="none">
+  <g stroke="#D6A936" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <!-- shelf -->
+    <path d="M55 350 H1145"/>
+    <path d="M55 350 Q55 370 75 370 H1125 Q1145 370 1145 350"/>
+    <path d="M80 370 V392 Q80 405 95 405 H125 Q140 405 140 392 V370"/>
+    <path d="M1060 370 V392 Q1060 405 1075 405 H1105 Q1120 405 1120 392 V370"/>
+
+    <!-- leaning book -->
+    <path d="M105 335 L150 105 Q153 92 166 96 L255 113 Q268 116 265 129 L220 350"/>
+    <path d="M115 315 L223 337"/>
+    <path d="M135 155 L258 181"/>
+    <path d="M145 135 L259 159"/>
+    <rect x="157" y="185" width="73" height="92" rx="2" transform="rotate(12 157 185)"/>
+
+    <!-- tall book -->
+    <rect x="270" y="80" width="105" height="270" rx="8"/>
+    <path d="M270 112 H375 M270 320 H375"/>
+    <path d="M290 105 V325 M355 105 V325"/>
+    <path d="M286 98 H359"/>
+
+    <!-- small decorated book -->
+    <rect x="385" y="135" width="100" height="215" rx="7"/>
+    <path d="M385 165 H485 M385 305 H485"/>
+    <path d="M402 185 H468 V285 H402 Z"/>
+    <path d="M435 205 C435 190 420 185 420 200 C420 211 435 222 435 235 C435 222 450 211 450 200 C450 185 435 190 435 205 Z"/>
+    <path d="M395 315 H475"/>
+
+    <!-- central book -->
+    <rect x="495" y="55" width="125" height="295" rx="8"/>
+    <path d="M495 88 H620 M495 285 H620"/>
+    <path d="M515 105 H600 V180 H515 Z"/>
+    <path d="M515 205 H600 V275 H515 Z"/>
+    <path d="M515 105 V275 M600 105 V275"/>
+    <path d="M510 315 H605"/>
+
+    <!-- decorated book -->
+    <rect x="630" y="135" width="105" height="215" rx="7"/>
+    <path d="M630 165 H735 M630 305 H735"/>
+    <path d="M680 205 C680 190 665 185 665 200 C665 211 680 222 680 235 C680 222 695 211 695 200 C695 185 680 190 680 205 Z"/>
+    <path d="M640 315 H725"/>
+
+    <!-- narrow book -->
+    <rect x="750" y="175" width="75" height="175" rx="6"/>
+    <path d="M750 205 H825 M750 315 H825"/>
+    <rect x="765" y="225" width="45" height="70"/>
+
+    <!-- patterned book -->
+    <rect x="840" y="120" width="80" height="230" rx="6"/>
+    <path d="M840 150 H920 M840 315 H920"/>
+    <path d="M880 180 l12 16 -12 16 -12 -16 Z M880 230 l12 16 -12 16 -12 -16 Z M880 280 l12 16 -12 16 -12 -16 Z"/>
+
+    <!-- stacked books -->
+    <path d="M945 270 Q940 255 955 250 H1110 Q1125 250 1128 265 L1132 292 Q1135 305 1120 308 H965 Q950 308 948 294 Z"/>
+    <path d="M945 315 Q940 300 955 295 H1100 Q1118 295 1122 310 L1125 337 Q1128 350 1112 350 H962 Q947 350 949 337 Z"/>
+    <path d="M965 265 H1100 M965 280 H1105 M965 295 H1108"/>
+    <path d="M965 310 H1090 M965 325 H1095 M965 340 H1100"/>
+    <path d="M1105 250 Q1115 275 1110 295 M1095 295 Q1105 320 1100 340"/>
+  </g>
+</svg>

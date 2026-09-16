@@ -129,3 +129,17 @@ export const logout = async (req: Request, res: Response) => {
     res.clearCookie('accessToken')
     res.json({message: "You are logged out"})
 }
+
+//==============================================
+// Is user already logged in?
+
+export const me = async (req: Request, res: Response) => {
+    if (!req.user) {
+        res.status(401).json({ message: "Not logged in" });
+        return;
+    }
+
+    res.json({
+        user: req.user
+    });
+}

@@ -92,3 +92,74 @@ document.getElementById("create-btn").addEventListener("click", async () => {
 });
 
 loadBooks();
+
+// ====================================
+// Funktion för att ladda alla användare
+
+async function loadUsers() {
+  try {
+    const response = await fetch(`${API_URL}/users`, {
+      credentials: "include",
+    });
+
+    if (response.status === 401 || response.status === 403) {
+      window.location.href =
+        "index.html?message=You must be logged in to view this page";
+      return;
+    }
+
+      const data = await response.json();
+      const users = data.users;
+
+      const tbody = document.getElementById("user-table");
+      tbody.innerHTML = "";
+
+      users.forEach((user) => {
+      const row = document.createElement("tr");
+
+      // Användarnamn
+      const username = document.createElement("td");
+      username.textContent = user.username;
+
+      // Admin
+      const isAdmin = document.createElement("td");
+      isAdmin.textContent = user.is_admin ? "Ja" : "Nej";
+
+      // Skapad
+      const createdAt = document.createElement("td");
+      createdAt.textContent = new Date(user.created_at).toLocaleDateString();
+
+      // Ta bort
+      const deleteCell = document.createElement("td");
+      const btn = document.createElement("button");
+
+      btn.textContent = "Ta bort";
+
+      btn.addEventListener("click", async () => {
+        try {
+          const delResponse = await fetch(`${API_URL}/users/${user._id}`, {
+            method: "DELETE",
+            credentials: "include",
+          });
+
+          if (delResponse.ok) {
+            loadUsers();
+          } else {
+            console.error("Kunde inte ta bort användaren");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      });
+
+      deleteCell.appendChild(btn);
+
+      row.append(username, isAdmin, createdAt, deleteCell);
+      tbody.appendChild(row);
+    });
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+loadUsers();
