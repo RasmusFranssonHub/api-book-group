@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bokdetaljer</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/book.css" />
+  </head>
+  <body>
+    <a href="/index.html">&larr; Tillbaka till boklistan</a>
+
+    <h1 id="book-title"></h1>
+    <div id="book-info"></div>
+
+    <section>
+      <h2>Skriv en recension</h2>
+      <div>
+        <label>Namn <input type="text" id="name" required /></label>
+        <label>Recension <textarea id="content" required></textarea></label>
+        <label
+          >Betyg (1-5)
+          <input type="number" id="rating" min="1" max="5" required
+        /></label>
+        <button id="create-btn">Skicka recension</button>
+      </div>
+      <div id="form-message"></div>
+    </section>
+
+    <section>
+      <h2 id="review-count">Recensioner</h2>
+      <div id="review-list"></div>
+    </section>
+
+    <script src="/js/functions.js"></script>
+    <script src="/js/book.js"></script>
+  </body>
+</html>

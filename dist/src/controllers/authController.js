@@ -15,17 +15,38 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.logout = exports.register = exports.login = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const User_1 = __importDefault(require("../models/User"));
+//==================================================
+// Controller for handling user login
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, password } = req.body;
     if (username === undefined || password === undefined) {
         res.status(400).json({ message: 'username and password are required' });
         return;
     }
-    const hashedPassword = "$2b$10$WoiGUJIU1IB5VarJOe468eae0wHxD53MI9PJta2ohnBam2R72Kc2S";
-    const isLoggedIn = yield bcrypt_1.default.compare(password, hashedPassword);
-    if (username === 'admin' && password === '123') {
-        const accessToken = jsonwebtoken_1.default.sign({ username }, process.env.JWT_SECRET || "", { expiresIn: '7d' });
-        console.log(accessToken);
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) {
+        res.status(500).json({ message: "JWT_SECRET is missing" });
+        return;
+    }
+    try {
+        const user = yield User_1.default.findOne({ username });
+        if (!user) {
+            res.status(401).json({ message: "username/password are wrong" });
+            return;
+        }
+        const isLoggedIn = yield bcrypt_1.default.compare(password, user.password);
+        if (!isLoggedIn) {
+            res.status(401).json({ message: "username/password are wrong" });
+            return;
+        }
+        const accessToken = jsonwebtoken_1.default.sign({
+            userId: user._id.toString(),
+            username: user.username,
+            is_admin: user.is_admin,
+        }, jwtSecret, { expiresIn: "7d" });
+        //====================================================
+        // Set the access token as an HTTP-only cookie in the response
         res.cookie('accessToken', accessToken, {
             // Prevents client-side JavaScript from accessing the cookie (e.g. document.cookie).
             // This protects against XSS attacks where malicious scripts try to steal the token.
@@ -41,15 +62,24 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             // After this time the browser automatically deletes the cookie and the user must log in again.
             maxAge: 1000 * 60 * 60 * 24 * 7 // Lives on for 7 days
         });
-        res.json({ message: 'You are logged in', isLoggedIn: isLoggedIn });
+        res.json({
+            message: "You are logged in",
+            user: {
+                id: user._id,
+                username: user.username,
+                is_admin: user.is_admin,
+            },
+        });
         return;
     }
-    else {
-        res.status(401).json({ message: 'username/password are wrong' });
-        return;
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Could not log in" });
     }
 });
 exports.login = login;
+//==============================================
+// Controller for handling user registration
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, password } = req.body;
     if (username === undefined || password === undefined) {
@@ -57,15 +87,34 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         return;
     }
     try {
+        const existingUser = yield User_1.default.findOne({ username });
+        if (existingUser) {
+            res.status(409).json({ message: "Username is already taken" });
+            return;
+        }
         const hashedPassword = yield bcrypt_1.default.hash(password, 10);
-        // The hashedPassword is the value that should be saved in the DB, not the plain password. For security reasons
-        res.json({ message: "You are registered", username: username, password: password, hashedPassword: hashedPassword });
+        const newUser = yield User_1.default.create({
+            username,
+            password: hashedPassword,
+        });
+        res.status(201).json({
+            message: "User registered",
+            user: {
+                id: newUser._id,
+                username: newUser.username,
+                is_admin: newUser.is_admin,
+                created_at: newUser.created_at,
+            },
+        });
     }
-    catch (e) {
-        console.log(e);
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Could not register user" });
     }
 });
 exports.register = register;
+//==============================================
+// Controller for handling user logout
 const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.clearCookie('accessToken');
     res.json({ message: "You are logged out" });

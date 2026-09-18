@@ -1,0 +1,5 @@
+{"_id":{"$oid":"6aa7d1ebf301253d130e0f2c"},"username":"Rasmus","password":"$2b$10$Qsc7uXMdViZktv2N2C/U/eNI4w53b52mMxwePLofcmbhNwMKN9jxa","is_admin":true,"created_at":{"$date":"2026-09-14T10:52:27.23Z"},"__v":0}
+{"_id":{"$oid":"6aa923a241756dc30c54c198"},"username":"Bosse","password":"$2b$10$0I01yVAEwZlfBh0SJ9RdZOAgzEhTsuMstIWrvEOkR5ltRhzrxj1q.","is_admin":true,"created_at":{"$date":"2026-09-15T10:53:22.474Z"},"__v":0}
+{"_id":{"$oid":"6aa923bd41756dc30c54c19c"},"username":"Göran","password":"$2b$10$hz4ad0EaGQqF0yzVDwZ/1efkpiM1bbL9t9MD7plPZQyE6ELkq45n.","is_admin":true,"created_at":{"$date":"2026-09-15T10:53:49.229Z"},"__v":0}
+{"_id":{"$oid":"6aaa5ef79bbade49c83102a9"},"username":"Oscar Holmblad","password":"$2b$10$3xzstDenShKrpn24qkMF9umO9IEyy3K31VhXCpWoCm84KiXmL39Si","is_admin":true,"created_at":{"$date":"2026-09-16T09:18:47.419Z"},"__v":0}
+{"_id":{"$oid":"6aaa5f4332b8bbaba008681e"},"username":"Carro","password":"$2b$10$o8hR79KCK2tSYSzYi1groeYK3xPIiZJKohzdXO242wFFp2kaimVRS","is_admin":true,"created_at":{"$date":"2026-09-16T09:20:03.405Z"},"__v":0}

@@ -1,0 +1,5 @@
+{"_id":{"$oid":"6aa7e777f6c006e2240346e4"},"name":"Carro","content":"En rörande berättelse om broderskärlek och mod, som stannar kvar länge efter man läst klart.","rating":5,"book_id":{"$oid":"6aa7c282fce498e230070118"},"created_at":{"$date":"2026-09-14T12:24:23.247Z"},"__v":0}
+{"_id":{"$oid":"6aa8220398be8974a210e152"},"name":"Fatima","content":"Klassiker som alla borde läsa, lite läskig för de yngsta dock.","rating":4,"book_id":{"$oid":"6aa7c282fce498e230070118"},"created_at":{"$date":"2026-09-14T16:34:11.453Z"},"__v":0}
+{"_id":{"$oid":"6aa9247841756dc30c54c1aa"},"name":"Leo","content":"Jättebra","rating":5,"book_id":{"$oid":"6aa7c282fce498e23007011c"},"created_at":{"$date":"2026-09-15T10:56:56.438Z"},"__v":0}
+{"_id":{"$oid":"6aaa60409bbade49c83102c5"},"name":"Oscar Holmblad","content":"Den va bra","rating":4,"book_id":{"$oid":"6aaa5fb49bbade49c83102b5"},"created_at":{"$date":"2026-09-16T09:24:16.181Z"},"__v":0}
+{"_id":{"$oid":"6aaa63bcc2c3e9e14d38311a"},"name":"Oscar Holmblad","content":"bra bok","rating":4,"book_id":{"$oid":"6aaa63a8c2c3e9e14d383112"},"created_at":{"$date":"2026-09-16T09:39:08.062Z"},"__v":0}
